@@ -1,0 +1,15 @@
+model Warn {
+  id        Int      @id @default(autoincrement())
+  guildId   String
+  userId    String
+  modId     String? // ← optionnel
+  reason    String?
+  createdAt DateTime @default(now())
+
+  guild     Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  user      User  @relation("WarnsReceived", fields: [userId], references: [id], onDelete: Cascade)
+  moderator User? @relation("WarnsGiven", fields: [modId], references: [id], onDelete: SetNull)
+
+  @@index([guildId, userId])
+  @@map("warns")
+}

@@ -1,0 +1,13 @@
+model CustomCommand {
+  id        Int     @id @default(autoincrement())
+  guildId   String
+  name      String
+  response  String
+  createdBy String?
+
+  guild  Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  author User? @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@unique([guildId, name])
+  @@map("custom_commands")
+}

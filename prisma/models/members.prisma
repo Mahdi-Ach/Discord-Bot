@@ -1,0 +1,17 @@
+model GuildMember {
+  guildId  String
+  userId   String
+  xp       Int      @default(0)
+  level    Int      @default(0)
+  messages Int      @default(0)
+  warns    Int      @default(0)
+  coins    Int      @default(0)
+  joinedAt DateTime @default(now())
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, userId])
+  @@index([guildId, xp(sort: Desc)])
+  @@map("guild_members")
+}

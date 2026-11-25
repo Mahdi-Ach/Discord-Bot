@@ -1,0 +1,20 @@
+model User {
+  id          String    @id
+  username    String
+  displayName String?
+  avatar      String?
+  bot         Boolean   @default(false)
+  language    String    @default("fr")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastSeenAt  DateTime?
+
+  memberships   GuildMember[]
+  warnsReceived Warn[]          @relation("WarnsReceived")
+  warnsGiven    Warn[]          @relation("WarnsGiven")
+  tickets       Ticket[]
+  customCmds    CustomCommand[]
+
+  @@index([username])
+  @@map("users")
+}

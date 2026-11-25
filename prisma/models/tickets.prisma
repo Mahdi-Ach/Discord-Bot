@@ -1,0 +1,16 @@
+model Ticket {
+  id        Int       @id @default(autoincrement())
+  guildId   String
+  userId    String
+  channelId String?
+  status    String    @default("open")
+  subject   String?
+  createdAt DateTime  @default(now())
+  closedAt  DateTime?
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, status])
+  @@map("tickets")
+}

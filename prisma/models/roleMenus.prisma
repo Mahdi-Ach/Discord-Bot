@@ -1,0 +1,13 @@
+model RoleMenu {
+  id        Int    @id @default(autoincrement())
+  guildId   String
+  channelId String
+  messageId String
+  emoji     String
+  roleId    String
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, emoji])
+  @@map("role_menus")
+}

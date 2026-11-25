@@ -1,0 +1,15 @@
+model Guild {
+  id        String   @id
+  name      String?
+  prefix    String   @default("!")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members    GuildMember[]
+  warns      Warn[]
+  tickets    Ticket[]
+  roleMenus  RoleMenu[]
+  customCmds CustomCommand[]
+
+  @@map("guilds")
+}
